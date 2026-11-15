@@ -18,7 +18,7 @@ export default function CompletionScreen({
   skipsUsed,
   onRestart,
 }: CompletionScreenProps) {
-  const [deckName, setDeckName] = useState("My Codex Deck");
+  const [deckName, setDeckName] = useState("My Genshin Deck");
 
   return (
     <div className="completion-wrap">
@@ -45,7 +45,7 @@ export default function CompletionScreen({
             type="button"
             className="restart-btn"
             onClick={() =>
-              downloadDeckXml(deckName.trim() || "My Codex Deck", mainDeck, extraDeck)
+              downloadDeckXml(deckName.trim() || "My Genshin Deck", mainDeck, extraDeck)
             }
           >
             Export Deck (.xml)

@@ -39,6 +39,19 @@
     "is_limited": ""
   },
   {
+    "dbook_id": "6141623",
+    "card_type": "fusion",
+    "img": "https://images.duelingbook.com/custom-pics/6100000/6141623.jpg?version=5",
+    "name": "Almighty Raiden Shogun - Guardian of Eternity",
+    "attribute": "DARK",
+    "level": "8",
+    "effect": "1 \"Raiden, the Electro Archon of Eternity\" + 2 monsters\nMust first be Summoned (from your Extra Deck) by banishing the above cards you control. (You don't use \"Polymerization\".) If this card is Summoned from the Extra Deck: You can banish 1 monster on the field.",
+    "type": "Thunder",
+    "atk": "3000",
+    "def": "2800",
+    "is_limited": ""
+  },
+  {
     "dbook_id": "6134589",
     "card_type": "effect monster",
     "img": "https://images.duelingbook.com/custom-pics/6100000/6134589.jpg?version=3",
@@ -464,7 +477,20 @@
     "effect": "If this card destroys a monster by battle; banish 1 monster from your GY.",
     "type": "Warrior",
     "atk": "2000",
-    "def": "1200",
+    "def": "200",
+    "is_limited": ""
+  },
+  {
+    "dbook_id": "6141526",
+    "card_type": "effect monster",
+    "img": "https://images.duelingbook.com/custom-pics/6100000/6141526.jpg",
+    "name": "Kinich, Hero of Natlan",
+    "attribute": "EARTH",
+    "level": "5",
+    "effect": "When this card is Summoned: Special Summon 1 \"Ajaw Token\" (Dragon/EARTH/Level 1/ ATK 200/DEF 200). You can only use the effect of \"Kinich, Hero of Natlan\" once per turn.",
+    "type": "Beast-Warrior",
+    "atk": "2000",
+    "def": "800",
     "is_limited": ""
   },
   {
@@ -546,6 +572,19 @@
     "is_limited": "1"
   },
   {
+    "dbook_id": "6141548",
+    "card_type": "effect monster",
+    "img": "https://www.duelingbook.com/card?id=6141548",
+    "name": "Mualani, Hero of Natlan",
+    "attribute": "WATER",
+    "level": "3",
+    "effect": "If you control no monsters; You can Special Summon this card from your hand.",
+    "type": "Beast-Warrior",
+    "atk": "700",
+    "def": "600",
+    "is_limited": ""
+  },
+  {
     "dbook_id": "5951916",
     "card_type": "effect monster",
     "img": "https://images.duelingbook.com/custom-pics/5900000/5951916.jpg?version=3",
@@ -557,6 +596,19 @@
     "atk": "2200",
     "def": "1400",
     "is_limited": "1"
+  },
+  {
+    "dbook_id": "6141442",
+    "card_type": "trap",
+    "img": "https://images.duelingbook.com/custom-pics/6100000/6141442.jpg?version=2",
+    "name": "Ode to Ressurection",
+    "attribute": "",
+    "level": "",
+    "effect": "Target 1 \"Hero of Natlan\" or 1 FIRE monster in your GY; Special Summon it to your side of the field, then inflict 500 damage to your opponent.",
+    "type": "",
+    "atk": "",
+    "def": "",
+    "is_limited": ""
   },
   {
     "dbook_id": "6012353",

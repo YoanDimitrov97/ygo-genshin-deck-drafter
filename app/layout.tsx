@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Teyvat Duel Codex",
+  title: "Teyvat Duel Codex v1.0",
   description: "Build a 40-card deck, one choice of three at a time.",
 };
 
