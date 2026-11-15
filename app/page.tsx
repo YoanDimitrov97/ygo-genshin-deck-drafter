@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Card } from "@/lib/types";
 import {
   MAIN_DECK_SIZE,
@@ -13,6 +13,8 @@ import CardPanel from "@/components/CardPanel";
 import DeckStatusBar from "@/components/DeckStatusBar";
 import DeckListModal from "@/components/DeckListModal";
 import CompletionScreen from "@/components/CompletionScreen";
+
+const PICK_ANIMATION_MS = 1800; // keep in sync with the 1.8s in the CSS
 
 type LoadState =
   | { status: "loading" }
@@ -28,6 +30,9 @@ export default function Home() {
   const [choices, setChoices] = useState<Card[]>([]);
   const [showDeck, setShowDeck] = useState(false);
   const [round, setRound] = useState(0);
+
+  const [picked, setPicked] = useState<Card | null>(null);
+  const pickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -52,12 +57,26 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (pickTimer.current) clearTimeout(pickTimer.current);
+    };
+  }, []);
+
+
+
   const complete = mainDeck.length >= MAIN_DECK_SIZE;
   const stuck =
     load.status === "ready" && !complete && choices.length === 0 && round > 0;
 
   function handleSelect(card: Card) {
-    if (load.status !== "ready" || complete) return;
+    if (load.status !== "ready" || complete || picked) return;
+    setPicked(card);
+    pickTimer.current = setTimeout(() => commitPick(card), PICK_ANIMATION_MS);
+  }
+
+  function commitPick(card: Card) {
+    if (load.status !== "ready") return;
     const pool = load.pool;
     let nextMain = mainDeck;
     let nextExtra = extraDeck;
@@ -74,10 +93,11 @@ export default function Home() {
     } else {
       setChoices([]);
     }
+    setPicked(null);
   }
 
   function handleSkip() {
-    if (load.status !== "ready" || skipsLeft <= 0 || complete) return;
+    if (load.status !== "ready" || skipsLeft <= 0 || complete || picked) return;
     setSkipsLeft((s) => s - 1);
     setChoices(
       drawChoices(
@@ -139,6 +159,7 @@ export default function Home() {
         mainCount={mainDeck.length}
         extraCount={extraDeck.length}
         skipsLeft={skipsLeft}
+        mainDeck={mainDeck}
         onViewDeck={() => setShowDeck(true)}
       />
 
@@ -151,15 +172,26 @@ export default function Home() {
         </div>
       ) : (
         <section className="choice-row" key={round}>
-          {choices.map((card, i) => (
-            <div
-              className="choice-slot"
-              style={{ animationDelay: `${i * 70}ms` }}
-              key={card.name}
-            >
-              <CardPanel card={card} onClick={() => handleSelect(card)} />
-            </div>
-          ))}
+          {choices.map((card, i) => {
+            const state = picked
+              ? picked.name === card.name
+                ? "picked"
+                : "destroyed"
+              : "";
+            return (
+              <div
+                className={`choice-slot${state ? ` choice-slot--${state}` : ""}`}
+                style={{ animationDelay: state ? "0ms" : `${i * 70}ms` }}
+                key={card.name}
+              >
+                <CardPanel
+                  card={card}
+                  disabled={picked !== null}
+                  onClick={() => handleSelect(card)}
+                />
+              </div>
+            );
+          })}
         </section>
       )}
 
@@ -168,7 +200,7 @@ export default function Home() {
           type="button"
           className="skip-btn"
           onClick={handleSkip}
-          disabled={skipsLeft <= 0}
+          disabled={skipsLeft <= 0 || picked !== null}
         >
           Skip These Cards ({skipsLeft} left)
         </button>

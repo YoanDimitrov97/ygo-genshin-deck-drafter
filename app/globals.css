@@ -99,6 +99,50 @@ button:disabled {
   padding: 1rem 1.4rem;
 }
 
+.stats-bar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.8rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+.stats-group {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.stats-divider {
+  width: 1px;
+  height: 1.6rem;
+  background: var(--rule);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.2rem;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--stat);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
 .status-block {
   min-width: 0;
 }
@@ -207,6 +251,66 @@ button:disabled {
   animation: rise 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
+/* picked card: lifts and glows in its own color */
+.choice-slot--picked {
+  position: relative;
+  z-index: 2;
+}
+
+.choice-slot--picked .choice-card {
+  animation: pick-glow 1.8s ease-in-out both;
+}
+
+@keyframes pick-glow {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 transparent;
+  }
+  20%,
+  80% {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow:
+      0 0 28px 6px color-mix(in srgb, var(--glow) 85%, transparent),
+      0 0 80px 18px color-mix(in srgb, var(--glow) 45%, transparent);
+  }
+  100% {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow:
+      0 0 40px 10px color-mix(in srgb, var(--glow) 90%, transparent),
+      0 0 100px 24px color-mix(in srgb, var(--glow) 50%, transparent);
+  }
+}
+
+/* the other two: shake, flash, then dissolve */
+.choice-slot--destroyed {
+  animation: destroy 0.8s ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes destroy {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    filter: none;
+  }
+  12% {
+    transform: translateX(-7px) rotate(-1deg);
+    filter: brightness(1.5) saturate(1.6);
+  }
+  24% {
+    transform: translateX(7px) rotate(1deg);
+  }
+  36% {
+    transform: translateX(-5px) rotate(-0.5deg);
+    filter: brightness(1.9) sepia(1) hue-rotate(-35deg);
+  }
+  100% {
+    transform: scale(0.82) translateY(24px);
+    opacity: 0;
+    filter: grayscale(1) blur(8px) brightness(0.4);
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -304,17 +408,23 @@ button:disabled {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   border: 1px solid var(--rule);
-  color: var(--ink-dim);
+  /* color: var(--ink-dim); */
   color: white;
   border-radius: 999px;
   padding: 0.16rem 0.55rem;
 }
 
 .meta-pill-level {
-  font-size: 0.75rem;
-  margin-left: 4px;
+  font-size: 1rem;
   white-space: nowrap;
   display: inline-block;
+  color:#333;
+  background-color: rgb(255, 251, 0);
+  border:3px solid #dab200;
+  position:absolute;
+  top:8px;
+  right:8px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .meta-pill-xyz {
@@ -367,7 +477,7 @@ button:disabled {
   display: flex;
   justify-content: center;
   gap: 8px;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   color: var(--ink);
   border-top: 1px solid var(--rule);
   padding-top: 0.5rem;

@@ -1,18 +1,22 @@
 "use client";
 
+import { Card } from "@/lib/types";
+import DeckStats from "./DeckStats";
+
 import { EXTRA_DECK_SIZE, MAIN_DECK_SIZE, TOTAL_SKIPS } from "@/lib/deck";
 
 interface DeckStatusBarProps {
   mainCount: number;
   extraCount: number;
   skipsLeft: number;
+  mainDeck: Card[];
   onViewDeck: () => void;
 }
-
 export default function DeckStatusBar({
   mainCount,
   extraCount,
   skipsLeft,
+  mainDeck,
   onViewDeck,
 }: DeckStatusBarProps) {
   const mainPct = Math.min(100, (mainCount / MAIN_DECK_SIZE) * 100);
@@ -69,6 +73,7 @@ export default function DeckStatusBar({
       <button type="button" className="view-deck-btn" onClick={onViewDeck}>
         View Deck
       </button>
+      <DeckStats mainDeck={mainDeck} />
     </div>
   );
 }

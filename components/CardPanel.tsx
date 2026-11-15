@@ -50,7 +50,7 @@ export default function CardPanel({
         <div className="choice-card-body">
           <p className="choice-card-name">
             {card.name}
-            {card.level && <span className="meta-pill meta-pill-level">{card.level} ⭐</span>}</p>
+            {card.level && <span className="meta-pill meta-pill-level">{card.level}⭐</span>}</p>
           <div className="choice-card-meta">
             {card.attribute && <span className="meta-pill meta-pill-attribute">{card.attribute}</span>}
             <span className={`meta-pill meta-pill-type ${extraTypeClass(card.card_type)}`}>
